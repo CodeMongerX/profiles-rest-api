@@ -14,7 +14,7 @@ Vagrant.configure("2") do |config|
   # boxes at https://atlas.hashicorp.com/search.
   config.vm.box = "ubuntu/xenial64"
 
-  config.vm.network "forwarded_port", host_ip: "127.0.0.1", guest: 8080, host: 8080
+  config.vm.network "forwarded_port", host_ip: "127.0.0.1", guest: 8080, host: 9080
 
   config.vm.provision "shell", inline: <<-SHELL
     # Update and upgrade the server packages.
@@ -25,9 +25,9 @@ Vagrant.configure("2") do |config|
     # Install Python, SQLite and pip
     sudo apt-get install -y python3-dev sqlite python3-pip redis-tools redis-server
     # Upgrade pip to the latest version.
-    sudo pip install --upgrade pip
+    sudo python3 -m pip install --upgrade pip
     # Install and configure python virtualenvwrapper.
-    sudo pip install virtualenvwrapper
+    sudo python3 -m pip install virtualenvwrapper
     if ! grep -q VIRTUALENV_ALREADY_ADDED /home/vagrant/.bashrc; then
         echo "# VIRTUALENV_ALREADY_ADDED" >> /home/vagrant/.bashrc
         echo "WORKON_HOME=~/.virtualenvs" >> /home/vagrant/.bashrc
